@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
+	<servlet>
+		<description>This is the description of my J2EE component</description>
+		<display-name>This is the display name of my J2EE component</display-name>
+		
+		<servlet-name>RandomImageServlet</servlet-name>
+		<servlet-class>com.winnermedical.it.validatecode.util.RandomImageServlet</servlet-class>
+		<!-- 初始化图片宽度 -->
+		<init-param>
+			<param-name>width</param-name>
+			<param-value>90</param-value>
+		</init-param>
+		<!-- 初始化图片高度 -->
+		<init-param>
+			<param-name>height</param-name>
+			<param-value>35</param-value>
+		</init-param>
+		<!-- 初始化图片随机数个数 -->
+		<init-param>
+			<param-name>num</param-name>
+			<param-value>4</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>RandomImageServlet</servlet-name>
+	    <url-pattern>/verification.do</url-pattern>
+	</servlet-mapping>
+  
+ 	<!-- 配置struts核心过滤器 -->
+	<filter>
+	    <filter-name>struts2</filter-name>
+	    <filter-class>
+  			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+  		</filter-class>
+  	</filter>
+   	<filter-mapping>
+	    <filter-name>struts2</filter-name>
+	    <url-pattern>/*</url-pattern>
+  	</filter-mapping>
+
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+
+	<!-- 配置首页 
+	<welcome-file-list>
+		<welcome-file>login.htm</welcome-file>
+	</welcome-file-list>
+	-->
+	
+	<welcome-file-list>
+		<welcome-file>pages/validateCode/validateCode.jsp</welcome-file>
+	</welcome-file-list>
+	
+</web-app>
