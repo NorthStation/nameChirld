@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>小孩取名系统登录</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<STYLE>
+TD {
+	FONT-SIZE: 11px;
+	COLOR: #000000;
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serIf;
+	TEXT-DECORATION: none
+}
+
+.input_1 {
+	BORDER-RIGHT: #999999 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: #999999 1px solid;
+	PADDING-LEFT: 2px;
+	LIST-STYLE-POSITION: inside;
+	FONT-SIZE: 12px;
+	PADDING-BOTTOM: 2px;
+	MARGIN-LEFT: 10px;
+	BORDER-LEFT: #999999 1px solid;
+	COLOR: #333333;
+	PADDING-TOP: 2px;
+	BORDER-BOTTOM: #999999 1px solid;
+	FONT-FAMILY: Arial, Helvetica, sans-serIf;
+	LIST-STYLE-TYPE: none;
+	HEIGHT: 18px;
+	BACKGROUND-COLOR: #dadedf
+}
+</STYLE>
+<META content="MSHTML 6.00.6000.16705" name=GENERATOR />
+<script type="text/javascript" src="scripts/jQuery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="scripts/jQuery/jquery-form.js"></script>
+<script type="text/javascript" src="scripts/layer/layer.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		debugger;
+		CODE.initCode();
+		//验证输入
+		function checkInput() {
+			debugger;
+			if ($('#userName').val() == '') {
+				//alert("用户名不能为空！");
+				layer.alert('用户名不能为空！');
+				return false;
+			}
+			if ($('#password').val() == '') {
+				layer.alert('密码不能为空！', {
+					icon : 2,
+					skin : 'layer-ext-seaning' //该皮肤由layer.seaning.com友情扩展。关于皮肤的扩展规则，可以去API页查看
+				})
+				return false;
+			}
+			if ($('#code').val() == '') {
+				/* layer.alert('墨绿风格，点击确认看深蓝', {
+				    skin: 'layui-layer-molv' //样式类名
+				}, function(){
+				    layer.alert('偶吧深蓝style', {
+				        skin: 'layui-layer-lan',
+				        shift: 4 //动画类型
+				    });
+				}); */
+				layer.confirm('验证码不能为空？', {
+					btn : [ 'YES', 'NO' ], //按钮
+					shade : false
+				//不显示遮罩
+				}, function() {
+					layer.msg('的确不能为空', {
+						icon : 1
+					});
+				}, function() {
+					layer.msg('回答错误', {
+						shift : 6
+					});
+				});
+				return false;
+			}
+			return true;
+		}
+
+		//点击按钮
+		$('#btn').click(function() {
+			debugger;
+			if (checkInput() == true) {
+				$('#login_request').ajaxSubmit({
+					url : 'login!testLogin',
+					cache : false,
+					type : 'POST',
+					success : function(data) {
+						if (data == 0) {
+							alert('验证码错误！');
+							//改变验证码
+							CODE.initCode();
+						} else if (data == 1) {
+							alert('登录成功！');
+							//提交到登录成功页面
+							$('#login_request')[0].submit();
+						} else if (data == 2) {
+							alert('用户名或密码错误！');
+							//改变验证码
+							CODE.initCode();
+						}
+					},
+					error : function(e) {
+						alert('出错了！');
+					}
+				});
+			} else {
+				return;
+			}
+		});
+	});
+	var CODE = {
+		//初始化化验证码
+		initCode : function() {
+			debugger;
+			$("#code_img").attr("src", "verification.do?rmd=" + new Date().getTime())//如果需要点击图片改变图片的内容，则必须添加时间搓
+			.click(function() {
+				$(this).attr("src", "verification.do?rmd=" + new Date().getTime());
+			});
+		}
+	};
+</script>
+</HEAD>
+<BODY>
+	<TABLE cellSpacing=0 cellPadding=0 width=651 align=center border=0>
+		<TBODY>
+
+			<TR>
+				<TD height=50></TD>
+			</TR>
+
+			<TR>
+				<TD height=351><TABLE cellSpacing=0 cellPadding=0 width="100%"
+						border=0>
+						<TBODY>
+							<TR>
+								<TD width=15 background=images/ileft.gif height=43></TD>
+								<TD width=620 background=images/i_topbg2.gif><IMG height=43
+									src="images/i_top1.gif" width=43 /></TD>
+								<TD width=16><IMG height=43 src="images/iright.gif"
+									width=16></TD>
+							</TR>
+							<TR>
+								<TD background=images/ileftbg.gif></TD>
+								<TD vAlign=center background=images/bg.gif height=279>
+									<TABLE height=109 cellSpacing=0 cellPadding=0 width=369
+										align=center border=0>
+										<TBODY>
+											<TR>
+												<TD width=155><IMG height=140 src="images/logo.jpg"
+													width=155 useMap=#Map border=0>
+												</TD>
+												<TD vAlign=top align=left width=214><TABLE
+														cellSpacing=0 cellPadding=0 width=167 border=0>
+														<TBODY>
+															<TR>
+																<TD vAlign=bottom width=167 height=30><A
+																	href="http://www.865171.cn/admin-templates/"> <IMG
+																		height=19 src="images/adminsyteam.gif" width=154
+																		border=0> </A></TD>
+															</TR>
+															<TR>
+																<TD height=123>
+																	<TABLE height=109 cellSpacing=0 cellPadding=0
+																		align=center border=0>
+																		<FORM name=form1>
+																			<!-- action= "http://localhost:8080/nameChirld/login/act_login"                          
+						  <FORM name=form2 action= "http://localhost:8080/nameChirld/gainName/gainName_getAllNameList"> -->
+
+																			<TR>
+																				<TD vAlign="bottom" align=left width=44 height=28>
+																					<DIV align=right>
+																						<IMG height=14 src="images/id.gif" width=43>
+																					</DIV></TD>
+																				<TD vAlign=bottom align=left width=114 height=28>
+																					<INPUT class=input_1 id=userName size=15
+																					name="user.userName"></TD>
+																			</TR>
+
+																			<TR>
+																				<TD vAlign="middle" align=left height=20>
+																					<DIV align=right>
+																						<IMG height=14 src="images/pass.gif" width=43>
+																					</DIV>
+																				</TD>
+																				<TD height=20><INPUT class=input_1 id=password
+																					type=password size=15 name=user.password>
+																				</TD>
+																			</TR>
+																			<TR>
+																				<TD vAlign="top" align=left height=20>
+																					<DIV align="center">
+																						<font color="#555555">验证码:</font>
+																					</DIV>
+																				</TD>
+																				<TD height=20><INPUT class=input_1 id=code
+																					type="text" size=15 name=user.validateCode
+																					style="width: 56px;">
+																				</TD>
+																				<td><img id="code_img"
+																					style="position:relative;top:0px;height:25px;left: -64px;">
+																				</td>
+																			</TR>
+
+																			<TR>
+																				<TD vAlign=center colSpan=2 height=25>
+																					<DIV align=center>
+																						<INPUT type=image src="images/b_login.gif"
+																							id="btn"> <IMG style="CURSOR: hand"
+																							onclick=document.form1.reset() height=21
+																							src="images/b_clean.gif" width=73>
+																					</DIV></TD>
+																			</TR>
+																		</FORM>
+
+																	</TABLE>
+																</TD>
+															</TR>
+														</TBODY>
+													</TABLE>
+												</TD>
+											</TR>
+										</TBODY>
+									</TABLE>
+								</TD>
+								<TD background=images/irightbg.gif></TD>
+							</TR>
+							<TR>
+								<TD><IMG height=29 src="images/i_bottom_left.gif" width=15>
+								</TD>
+								<TD background=images/i_bottom_bg.gif></TD>
+								<TD width=16><IMG height=29 src="images/i_bottom_right.gif"
+									width=16>
+								</TD>
+							</TR>
+						</TBODY>
+					</TABLE>
+				</TD>
+			</TR>
+			<TR>
+				<TD height=1></TD>
+			</TR>
+			<TR>
+				<TD>&nbsp;</TD>
+			</TR>
+		</TBODY>
+	</TABLE>
+</BODY>
+</HTML>

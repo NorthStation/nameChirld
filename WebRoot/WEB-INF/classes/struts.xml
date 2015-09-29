@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- <constant name="struts.objectFactory" value="spring"></constant> -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.devMode" value="false" />
+	
+	 <package name="installs" extends="struts-default">
+		<action name="login" class="com.winnermedical.it.validatecode.action.LoginAction">
+			<!-- 登录成功到success.jsp页面 -->
+			<result name="success">success.jsp</result>
+			<!-- 登录验证返回的数据 -->
+			<result name="result" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">result</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 配置页面响应信息 -->
+	<package name="login" namespace="/login" extends="struts-default">
+		<action name="act_*" class="com.huawei_bp_it.nameSystem.action.LoginAction" method="{1}">
+			<result name="loginSucceed" type="chain">
+				<param name="namespace">/manager</param>
+				<param name="actionName">gainName_getAllNameList</param>
+			</result>
+			<result name="loginFaild" type="redirect">/login.htm</result>
+			<result name="logout" type="redirect">/login.htm</result>
+		</action>
+	</package>	
+
+	<!-- 配置页面响应信息 -->
+	<package name="nameSystem" namespace="/manager" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="default">
+				<interceptor-ref name="exception">
+					<param name="logEnabled">true</param>
+					<param name="logLevel">warn</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="default"></default-interceptor-ref>
+
+		<!-- 字展示 -->
+		<action name="gainName_*" class="com.huawei_bp_it.nameSystem.action.nameCharAction.GainNameCharAction" method="{1}">
+			<result name="allNameList" type="dispatcher">/pages/nameChar/gainAllNameChar.jsp</result>
+			<result name="error" type="dispatcher">/pages/errorPage.jsp</result>
+		</action>
+		<!-- 字创建 -->
+		<action name="addName_*" class="com.huawei_bp_it.nameSystem.action.nameCharAction.CreateNameCharAction" method="{1}">
+			<result name="creating" type="redirect">/pages/nameChar/addNameChar.jsp</result>
+			<result name="createdSucceed" type="dispatcher">/pages/nameChar/gainAllNameChar.jsp</result>
+			<result name="createdFaild" type="redirect">/pages/nameChar/addNameChar.jsp</result>
+		</action>
+		<!-- 字管理 -->
+		<action name="modify_*" class="com.huawei_bp_it.nameSystem.action.nameCharAction.ModifyNameCharAction" method="{1}">
+			<result name="modify" type="chain">
+				<param name="namespace">/manager</param>
+				<param name="actionName">gainName_getAllNameList</param>
+			</result>
+			<result name="createdSucceed" type="redirect">/pages/nameChar/gainAllNameChar.jsp</result>
+			<result name="createdFaild" type="redirect">/pages/nameChar/addNameChar.jsp</result>
+		</action>
+	</package>
+
+</struts>    

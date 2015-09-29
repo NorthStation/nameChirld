@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<!DOCTYPE sqlMapConfig  
+  
+PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"  
+  
+"http://www.ibatis.com/dtd/sql-map-config-2.dtd">  
+  
+<sqlMapConfig>  
+  <settings  
+    cacheModelsEnabled="true"  
+    enhancementEnabled="true"  
+    lazyLoadingEnabled="true"  
+    errorTracingEnabled="false"  
+    maxRequests="32"  
+    maxSessions="10"  
+    maxTransactions="5"  
+    useStatementNamespaces="false"  
+    />  
+  <!-- <sqlMap resource="com/naxl/oa/model/tb_User.xml" />  
+  <sqlMap resource="com/naxl/oa/model/tb_Department.xml" />   -->
+</sqlMapConfig>  
